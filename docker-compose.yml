@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  restaurant_api_service:
+    image: restaurant_api_service:latest
+    container_name: 'restaurant_api_service'
+    restart: always
+
+    env_file:
+      - /.env
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+
+  nginx:
+    container_name: nginx
+    working_dir: /restaurant_api_service
+    image: nginx:stable-alpine
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/nginx/:/etc/nginx/conf.d:ro
+    depends_on:
+      - restaurant_api_service

@@ -1,0 +1,10 @@
+__pycache__/
+.idea
+postgres_data
+.venv
+.gitignore
+Pipfile
+Pipfile.lock
+.git
+.env
+README.md
