@@ -6,7 +6,7 @@ REST API для бронирования столиков в ресторане.
 
 ### Установка и запуск
 
-- Клонируем репозиторий `git clone`
+- Клонируем репозиторий `git clone https://github.com/AlexeyDemidow/restaurant_api_service.git`
 - Устанавливаем зависимости `pip install -r requirements.txt`
 - Создаем `.env` файл и заполняем его по образцу `.env.example`
 - Создаем docker-образ `docker build -t docker_image_name .`
